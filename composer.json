@@ -1,0 +1,16 @@
+{
+	"name" : "fassumpcao/framework",
+	"description" : "Projeto Framework PHP",
+	"authors" : [{
+			"name" : "Felipe Assumpção",
+			"email" : "felipe.p.assumpcao@gmail.com"
+		}
+	],
+	"autoload" : {
+		"psr-4" : {
+			"Core\\" : "core",
+			"Src\\" : "app/src",
+			"App\\" : "app"
+		}
+	}
+}
