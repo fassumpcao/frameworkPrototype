@@ -17,6 +17,7 @@ class ConfigView
     {
         if (file_exists('app/' . $this->Nome . '.php')) {
             include 'app/src/Views/includes/header.php';
+            include 'app/src/Views/includes/menu.php';
             include 'app/' . $this->Nome . '.php';
             include 'app/src/Views/includes/footer.php';
         } else {

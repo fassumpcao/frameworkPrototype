@@ -49,7 +49,7 @@ $paginacao .= "</nav>";
 						<th scope="col">Nome</th>
 						<th scope="col">Login</th>
 						<th scope="col">Data Cadastro</th>
-						<th scope="col">Dados</th>
+						<th scope="col">Editar Dados</th>
 				    </tr>
 				  	</thead>
 				  	<tbody>
@@ -57,10 +57,10 @@ $paginacao .= "</nav>";
 			                extract($dados); ?>
 							<tr>
 							    <th scope="row"><?php echo $iduser?></th>
-							    <td><?php echo $username?></td>
+							    <td><?php echo utf8_decode($username)?></td>
 							    <td><?php echo $deslogin?></td>
 							    <td><?php echo $dtregister?></td>
-								<td><a href="<?php echo URL . '/formulario/' . $iduser; ?>" class="text-danger">Acessar</a></td>
+								<td><a class="btn btn-primary" href="<?php echo URL . '/formulario/' . $iduser; ?>" role="button">Acessar</a></td>
 						    </tr>
 			    		<?php
 			            }
