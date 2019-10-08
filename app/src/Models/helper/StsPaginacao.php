@@ -6,7 +6,7 @@ if (! defined('URL')) {
     exit();
 }
 
-class stsPaginacao
+class StsPaginacao
 {
     private $Link;
     private $MaxLinks;

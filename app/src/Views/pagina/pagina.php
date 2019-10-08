@@ -57,10 +57,10 @@ $paginacao .= "</nav>";
 			                extract($dados); ?>
 							<tr>
 							    <th scope="row"><?php echo $iduser?></th>
-							    <td><?php echo utf8_decode($username)?></td>
+							    <td><?php echo utf8_encode($username)?></td>
 							    <td><?php echo $deslogin?></td>
 							    <td><?php echo $dtregister?></td>
-								<td><a class="btn btn-primary" href="<?php echo URL . '/formulario/' . $iduser; ?>" role="button">Acessar</a></td>
+								<td><a class="btn btn-primary" href="<?php echo URL . '/formulario/exibirUsuario/' . $iduser; ?>" role="button">Acessar</a></td>
 						    </tr>
 			    		<?php
 			            }

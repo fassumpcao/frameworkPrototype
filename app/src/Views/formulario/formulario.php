@@ -13,9 +13,9 @@
                 <input type="hidden" name="iduser" value="<?php echo isset($iduser) ? $iduser : ''; ?>">
                 <div class="form-group col-md-6">
                     <label>Nome</label> <input type="text" name="username" class="form-control"
-                        placeholder="Nome completo" value="<?php echo isset($username) ? utf8_decode($username): ''; ?>">
+                        placeholder="Nome completo" value="<?php echo isset($username) ? utf8_encode($username): ''; ?>">
                 </div>
-                
+
                 <div class="form-group col-md-6">
                     <label>Login</label> <input type="text" name="deslogin" class="form-control"
                         placeholder="Nome completo" value="<?php echo isset($deslogin) ? $deslogin : ''; ?>">

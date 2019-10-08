@@ -12,7 +12,16 @@ class Formulario
     private $Dados;
     private $IdUser;
 
-    public function index($idUser = NULL) {
+    public function index() {
+        
+        $this->Dados['usuario'] = NULL;
+
+        $carregarView = new \Core\ConfigView("src/Views/formulario/formulario", $this->
+            Dados);
+        $carregarView->renderizar();
+    }
+
+    public function exibirUsuario($idUser = NULL) {
 
         $this->IdUser = $idUser;
         $dadosUsuario = new \Src\Models\StsUsuario();
