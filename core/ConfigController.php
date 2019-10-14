@@ -48,10 +48,10 @@ class ConfigController
             $this->UrlMetodo = $this->slugMetodo(METODO);
             $this->UrlParametro = null;
         }
-        //echo "URL: {$this->Url} <br>";
-        //echo "Controlle: {$this->UrlController} <br>";
-        //echo "Metodo: {$this->UrlMetodo} <br>";
-        //echo "Paramento: {$this->UrlParametro} <br>";
+        echo "URL: {$this->Url} <br>";
+        echo "Controlle: {$this->UrlController} <br>";
+        echo "Metodo: {$this->UrlMetodo} <br>";
+        echo "Parâmetro: {$this->UrlParametro} <br>";
     }
 
     private function limparUrl()

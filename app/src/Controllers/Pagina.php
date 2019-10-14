@@ -11,9 +11,10 @@ class Pagina
     private $Dados;
     private $PageId;
 
-    public function index() {
+    public function pg($pg_num = 1) {
 
-        $this->PageId = filter_input(INPUT_GET, 'pg', FILTER_SANITIZE_NUMBER_INT);
+        //$this->PageId = filter_input(INPUT_GET, 'pg', FILTER_SANITIZE_NUMBER_INT);
+        $this->PageId = $pg_num;
         $this->PageId = $this->PageId ? $this->PageId : 1;
 
         $listar_art = new \Src\Models\StsPagina();

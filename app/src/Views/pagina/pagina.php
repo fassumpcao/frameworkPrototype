@@ -10,11 +10,11 @@ extract($this->Dados['paginacao']);
 //Link Primeira
 $paginacao = "<nav aria-label=\"paginacao\">";
 $paginacao .= "<ul class=\"pagination justify-content-center\">";
-$paginacao .= "<li class=\"page-item\"><a class=\"page-link\" href=\"$link\" tabindex=\"-1\">Primeira</a></li>";
+$paginacao .= "<li class=\"page-item\"><a class=\"page-link\" href=\"$link/pg\" tabindex=\"-1\">Primeira</a></li>";
 //Anteriores
 for ($iPag = ($pagina - $maxLinks); $iPag <= ($pagina - 1); $iPag++) {
     if ($iPag >= 1) {
-        $paginacao .= "<li class=\"page-item\"><a class=\"page-link\" href=\"$link?pg=$iPag\">$iPag</a></li>";
+        $paginacao .= "<li class=\"page-item\"><a class=\"page-link\" href=\"$link/pg/$iPag\">$iPag</a></li>";
     }
 }
 
@@ -24,12 +24,12 @@ $paginacao .= "<li class=\"page-item active\"><a class=\"page-link\" href=\"#\">
 //Proximas
 for ($dPag = ($pagina + 1); $dPag <= ($pagina + $maxLinks); $dPag++) {
     if ($dPag <= $totalPaginas) {
-        $paginacao .= "<li class=\"page-item\"><a class=\"page-link\" href=\"$link?pg=$dPag\">$dPag</a></li>";
+        $paginacao .= "<li class=\"page-item\"><a class=\"page-link\" href=\"$link/pg/$dPag\">$dPag</a></li>";
     }
 }
 
 //Link Ultima
-$paginacao .= "<li class=\"page-item\"><a class=\"page-link\" href=\"$link?pg=$totalPaginas\">Última</a></li>";
+$paginacao .= "<li class=\"page-item\"><a class=\"page-link\" href=\"$link/pg/$totalPaginas\">Última</a></li>";
 $paginacao .= "</ul>";
 $paginacao .= "</nav>";
 

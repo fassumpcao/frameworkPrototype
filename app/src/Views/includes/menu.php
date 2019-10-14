@@ -8,7 +8,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo URL;?>/Pagina">Paginação <span class="sr-only"></span></a>
+        <a class="nav-link" href="<?php echo URL;?>/Pagina/pg/">Paginação <span class="sr-only"></span></a>
       </li>
 
       <li class="nav-item">
