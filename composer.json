@@ -12,5 +12,11 @@
 			"Src\\" : "app/src",
 			"App\\" : "app"
 		}
-	}
+	},
+	"require": {
+        "phpunit/phpunit": "^8.4"    
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit --colors --testdox"
+    }
 }

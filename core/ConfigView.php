@@ -12,15 +12,18 @@ class ConfigView
         $this->Dados = $Dados;
     }
 
-    public function renderizar()
+    public function renderizar($flgLogin = false)
     {
         if (file_exists('app/' . $this->Nome . '.php')) {
             require_once 'app/src/Views/includes/header.php';
-            require_once 'app/src/Views/includes/menu.php';
+            if($flgLogin === false){
+                require_once 'app/src/Views/includes/menu.php';
+            }
             require_once 'app/' . $this->Nome . '.php';
             require_once 'app/src/Views/includes/footer.php';
         } else {
             require_once 'app/src/Views/error/404.php';
         }
     }
+
 }

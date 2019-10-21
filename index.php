@@ -3,10 +3,13 @@
     require './core/Config.php';
     require './vendor/autoload.php';
 
-    //var_dump(filter_input(INPUT_GET, 'url', FILTER_DEFAULT));
+    $url = filter_input(INPUT_GET, 'url', FILTER_DEFAULT);
+
+    print_r("SESSION: ".$_SESSION['logado']);
     echo "<br>";
 
     use Core\ConfigController as Home;
-    $Url = new Home();
+    $Url = new Home($url);
     $Url->carregar();
+
 ?>

@@ -18,11 +18,13 @@ class ConfigController
     private $Classe;
     private $Paginas;
     private static $Format;
+    private $Acesso;
 
-    public function __construct()
+    public function __construct($url = NULL)
     {
-        if (!empty(filter_input(INPUT_GET, 'url', FILTER_DEFAULT))) {
-            $this->Url = filter_input(INPUT_GET, 'url', FILTER_DEFAULT);
+        if (!empty($url)) {
+
+            $this->Url = $url;
             $this->limparUrl();
             $this->UrlConjunto = explode("/", $this->Url);
 
@@ -48,10 +50,12 @@ class ConfigController
             $this->UrlMetodo = $this->slugMetodo(METODO);
             $this->UrlParametro = null;
         }
+
         echo "URL: {$this->Url} <br>";
         echo "Controlle: {$this->UrlController} <br>";
         echo "Metodo: {$this->UrlMetodo} <br>";
         echo "Parâmetro: {$this->UrlParametro} <br>";
+
     }
 
     private function limparUrl()
@@ -81,12 +85,16 @@ class ConfigController
         return lcfirst($UrlController);
     }
 
-    public function carregar()
+    public function carregar($login = false)
     {
-        //$listarPg = new \App\adms\Models\AdmsPaginas();
-        //$this->Paginas = $listarPg->listarPaginas($this->UrlController, $this->UrlMetodo);
-        //if ($this->Paginas) {
-            //extract($this->Paginas[0]);
+        if(! $login){
+            $acesso = new \App\src\Models\StsAcesso();
+            $this->Acesso = $acesso->checkAcesso();
+        } else {
+            $this->Acesso = true;
+        }
+        if ($this->Acesso) {
+
             $this->Classe = "\\App\\src\\Controllers\\" . $this->UrlController;
             if (class_exists($this->Classe)) {
                 $this->carregarMetodo();
@@ -95,26 +103,30 @@ class ConfigController
                 $this->UrlMetodo = $this->slugMetodo(METODO);
                 $this->carregar();
             }
-        /*} else {
-            $this->UrlController = $this->slugController('Login');
-            $this->UrlMetodo = $this->slugMetodo('acesso');
-            $this->carregar();
-        }*/
+        } else {
+            $this->UrlController = $this->slugController(CONTROLER_LOGIN);
+            $this->UrlMetodo = $this->slugMetodo(METODO);
+            $this->carregar(true);
+        }
+
     }
 
     private function carregarMetodo()
     {
         $classeCarregar = new $this->Classe;
         if(method_exists($classeCarregar, $this->UrlMetodo)){
+
             if($this->UrlParametro !== null){
                 $classeCarregar->{$this->UrlMetodo}($this->UrlParametro);
             }else{
                 $classeCarregar->{$this->UrlMetodo}();
             }
+
         }else{
             $this->UrlController = $this->slugController(CONTROLER);
             $this->UrlMetodo = $this->slugMetodo(METODO);
             $this->carregar();
         }
     }
+
 }

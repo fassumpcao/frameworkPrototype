@@ -7,6 +7,7 @@ define('URL', 'http://localhost/frameworkPrototype');
 //define('URLADM', 'http://local.website.com.br/adm');
 
 define('CONTROLER', 'Home');
+define('CONTROLER_LOGIN', 'Login');
 define('METODO', 'index');
 define('CONTROLER_ERROR', 'Error');
 //Credenciais do BD
