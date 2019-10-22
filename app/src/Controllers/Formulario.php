@@ -2,10 +2,8 @@
 
 namespace App\src\Controllers;
 
-if(!defined('URL')){
-    header("Location: /site_curso");
-    exit();
-}
+use \Core\ConfigView;
+use \Src\Models\StsUsuario;
 
 class Formulario
 {
@@ -13,10 +11,10 @@ class Formulario
     private $IdUser;
 
     public function index() {
-        
+
         $this->Dados['usuario'] = NULL;
 
-        $carregarView = new \Core\ConfigView("src/Views/formulario/formulario", $this->
+        $carregarView = new ConfigView("src/Views/formulario/formulario", $this->
             Dados);
         $carregarView->renderizar();
     }
@@ -24,10 +22,10 @@ class Formulario
     public function exibirUsuario($idUser = NULL) {
 
         $this->IdUser = $idUser;
-        $dadosUsuario = new \Src\Models\StsUsuario();
+        $dadosUsuario = new StsUsuario();
         $this->Dados['usuario'] = $dadosUsuario->getData($this->IdUser);
 
-        $carregarView = new \Core\ConfigView("src/Views/formulario/formulario", $this->
+        $carregarView = new ConfigView("src/Views/formulario/formulario", $this->
             Dados);
         $carregarView->renderizar();
     }

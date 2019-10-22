@@ -1,10 +1,7 @@
 <?php
 namespace Src\Models\helper;
 
-if (! defined('URL')) {
-    header("Location: /site_curso");
-    exit();
-}
+use \Src\Models\helper\StsRead;
 
 class StsPaginacao
 {
@@ -47,7 +44,7 @@ class StsPaginacao
         $this->Query = (string) $Query;
         $this->ParseString = (string) $ParseString;
 
-        $contar = new \Src\Models\helper\StsRead();
+        $contar = new StsRead();
         $contar->fullRead($this->Query, $this->ParseString);
         $this->ResultBd = $contar->getResultado();
 

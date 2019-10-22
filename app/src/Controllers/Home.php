@@ -1,11 +1,7 @@
 <?php
 
 namespace App\src\Controllers;
-
-if(!defined('URL')){
-    header("Location: /site_curso");
-    exit();
-}
+use \Core\ConfigView;
 
 class Home
 {
@@ -30,7 +26,7 @@ s
         //$this->Dados['teste'] =  json_encode(array("campo1" => "1", "campo2" => "2"));
 
         //Carrega a view e envia os dados
-        $carregarView = new \Core\ConfigView("src/Views/home/home", $this->
+        $carregarView = new ConfigView(SRC_VIEWS_PATH . "/home/home", $this->
             Dados);
         $carregarView->renderizar();
     }

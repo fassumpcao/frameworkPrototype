@@ -1,8 +1,4 @@
 <?php
-if (! defined('URL')) {
-    header("Location: /site_curso");
-    exit();
-}
 
 //var_dump($this->Dados);
 extract($this->Dados['paginacao']);

@@ -2,11 +2,7 @@
 
 namespace Core;
 
-/**
- * Description of ConfigController
- *
- * @copyright (c) year, Cesar Szpak - Celke
- */
+
 class ConfigController
 {
 
@@ -89,11 +85,11 @@ class ConfigController
     {
         if(! $login){
             $acesso = new \App\src\Models\StsAcesso();
-            $this->Acesso = $acesso->checkAcesso();
-        } else {
-            $this->Acesso = true;
+            $acesso->getAcesso();
+            $this->Acesso = $acesso->getResultado();
         }
-        if ($this->Acesso) {
+
+        if ($this->Acesso || $login) {
 
             $this->Classe = "\\App\\src\\Controllers\\" . $this->UrlController;
             if (class_exists($this->Classe)) {

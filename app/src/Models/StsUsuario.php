@@ -1,11 +1,7 @@
 <?php
 namespace Src\Models;
 
-if (! defined('URL')) {
-    header("Location: /site_curso");
-    exit();
-}
-
+use \Src\Models\helper\StsRead;
 
 class StsUsuario
 {
@@ -14,14 +10,14 @@ class StsUsuario
 
     public function getData($IdUser = null) {
         $this->User = (string) $IdUser;
-        $data = new \Src\Models\helper\StsRead();
+        $data = new StsRead();
         $data->fullRead('SELECT iduser, username, deslogin, despassword, inadmin, dtregister
                                 FROM users
                                 WHERE iduser = :iduser
                                 LIMIT :limit',
                                 "iduser={$this->User}&limit=1");
         $this->Resultado = $data->getResultado();
-        
+
         return $this->Resultado;
 
     }

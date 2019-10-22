@@ -3,12 +3,6 @@ namespace Src\Models\helper;
 
 use PDO;
 
-if(!defined('URL')){
-    header("Location: /site_curso");
-    exit();
-}
-
-
 class StsConn
 {
     public static $Host = HOST;

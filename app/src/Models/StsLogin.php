@@ -2,18 +2,15 @@
 
 namespace App\src\Models;
 
-if (!defined('URL')) {
-    header("Location: /");
-    exit();
-}
+use \Src\Models\helper\StsRead;
+use \Src\Models\helper\StsSession;
 
 class StsLogin
 {
-
     private $Dados;
     private $Resultado;
 
-    function getResultado()
+    public function getResultado()
     {
         return $this->Resultado;
     }
@@ -24,7 +21,7 @@ class StsLogin
 
         $this->validarDados();
         if ($this->Resultado) {
-            $validaLogin = new \Src\Models\helper\StsRead();
+            $validaLogin = new StsRead();
             $validaLogin->fullRead("SELECT user.iduser, user.username, user.deslogin, user.despassword, user.inadmin, user.dtregister
                     FROM users user
                     WHERE deslogin =:deslogin LIMIT :limit", "deslogin={$this->Dados['usuario']}&limit=1");
@@ -32,11 +29,11 @@ class StsLogin
             if (!empty($this->Resultado)) {
                 $this->validarSenha();
             } else {
+                $sessionSetError = new StsSession();
+                $sessionSetError->setMsgError("<div class='alert alert-danger'>Erro: Usuário ou a senha incorreto!</div>");
                 $this->Resultado = false;
-                $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Usuário ou a senha incorreto!</div>";
             }
         }
-
     }
 
     private function validarDados()
@@ -44,7 +41,8 @@ class StsLogin
         $this->Dados = array_map('strip_tags', $this->Dados);
         $this->Dados = array_map('trim', $this->Dados);
         if (in_array('', $this->Dados)) {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Necessário preencher todos os campos!</div>";
+            $sessionSetError = new StsSession();
+            $sessionSetError->setMsgError("<div class='alert alert-danger'>Erro: Necessário preencher todos os campos!</div>");
             $this->Resultado = false;
         } else {
             $this->Resultado = true;
@@ -55,15 +53,23 @@ class StsLogin
     {
         //if (password_verify($this->Dados['senha'], $this->Resultado[0]['senha'])) {
         if ($this->Dados['senha'] == $this->Resultado[0]['despassword']) {
-            $_SESSION['usuario_id'] = $this->Resultado[0]['iduser'];
-            $_SESSION['usuario_nome'] = $this->Resultado[0]['username'];
-            $_SESSION['usuario_email'] = $this->Resultado[0]['deslogin'];
-            $_SESSION['logado'] = true;
+            $session = new StsSession();
+            $session->setData($this->Resultado[0]);
+
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Usuário ou a senha incorreto!</div>";
+            $session = new StsSession();
+            $session->setMsgError("<div class='alert alert-danger'>Erro: Usuário ou a senha incorreto!</div>");
             $this->Resultado = false;
         }
     }
 
+    public function logout()
+    {
+        $session = new StsSession();
+        $session->unsetData();
+        $session->setMsgSuccess("<div class='alert alert-success'>Deslogado com sucesso</div>");
+
+        return true;
+    }
 }

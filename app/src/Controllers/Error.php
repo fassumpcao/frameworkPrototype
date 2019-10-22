@@ -2,10 +2,7 @@
 
 namespace App\src\Controllers;
 
-if(!defined('URL')){
-    header("Location: /site_curso");
-    exit();
-}
+use \Core\ConfigView;
 
 class Error
 {
@@ -14,7 +11,7 @@ class Error
     public function index() {
 
         //Carrega a view e envia os dados
-        $carregarView = new \Core\ConfigView("src/Views/error/404", $this->
+        $carregarView = new ConfigView(SRC_VIEWS_PATH . "error/404", $this->
             Dados);
         $carregarView->renderizar();
     }

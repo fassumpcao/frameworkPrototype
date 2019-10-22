@@ -1,8 +1,4 @@
 <?php
-if (! defined('URL')) {
-    header("Location: /framework");
-    exit();
-}
 
 if (isset($this->Dados)) {
 

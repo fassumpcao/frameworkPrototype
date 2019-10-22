@@ -3,11 +3,6 @@ namespace Src\Models\helper;
 
 use PDO;
 
-if (! defined('URL')) {
-    header("Location: /site_curso");
-    exit();
-}
-
 class StsCreate extends StsConn
 {
     private $Tabela;

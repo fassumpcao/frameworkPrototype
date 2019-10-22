@@ -1,10 +1,7 @@
 <?php
 namespace Src\Models;
 
-if(!defined('URL')){
-    header("Location: /site_curso");
-    exit();
-}
+use \Src\Models\helper\StsRead;
 
 class StsPaginas
 {
@@ -13,7 +10,7 @@ class StsPaginas
 
     public function listarPaginas($UrlController = null) {
         $this->UrlController = (string) $UrlController;
-        $listar = new \Src\Models\helper\StsRead();
+        $listar = new StsRead();
         $listar->fullRead('SELECT pg.id,
                             tpg.tipo tipo_tpg
                             FROM sts_paginas pg

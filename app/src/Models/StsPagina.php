@@ -1,11 +1,8 @@
 <?php
 namespace Src\Models;
 
-if (! defined('URL')) {
-    header("Location: /site_curso");
-    exit();
-}
-
+use \Src\Models\helper\StsPaginacao;
+use \Src\Models\helper\StsRead;
 
 class StsPagina
 {
@@ -22,14 +19,14 @@ class StsPagina
     public function listarDados($PageId = null) {
 
         $this->PageId = (int) $PageId;
-        $paginacao = new \Src\Models\helper\StsPaginacao(URL . '/pagina');
+        $paginacao = new StsPaginacao(URL . '/pagina');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao('SELECT COUNT(iduser) AS num_result
                         FROM users
                         WHERE inadmin = :inadmin', 'inadmin=1');
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listar = new \Src\Models\helper\StsRead();
+        $listar = new StsRead();
         $listar->fullRead('SELECT iduser, username, deslogin, despassword, inadmin, dtregister
                         FROM users
                         WHERE inadmin = :inadmin

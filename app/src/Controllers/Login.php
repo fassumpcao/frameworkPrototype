@@ -2,14 +2,12 @@
 
 namespace App\src\Controllers;
 
-if (!defined('URL')) {
-    header("Location: /");
-    exit();
-}
+use \App\src\Models\StsLogin;
+use \App\src\Models\StsAcesso;
+use \Core\ConfigView;
 
 class Login
 {
-
     private $Dados;
 
     public function index()
@@ -19,28 +17,30 @@ class Login
         if (!empty($this->Dados['SendLogin'])) {
             unset($this->Dados['SendLogin']);
 
-            $acessoLogin = new \App\src\Models\StsLogin();
-            $acessoLogin->acesso($this->Dados);
+            $login = new StsLogin();
+            $login->acesso($this->Dados);
 
-            if ($acessoLogin->getResultado()) {
-                $UrlDestino = URL . '/'.CONTROLER.'/'.METODO;
-                header("Location: $UrlDestino");
-            } else {                
+            if ($login->getResultado()) {
+                $acesso = new StsAcesso();
+                $acesso->setAcesso();
+                header("Location: " . URL . '/'. CONTROLER . '/' .METODO);
+            } else {
                 $this->Dados['form'] = $this->Dados;
             }
+        } else {
+            $acesso = new StsAcesso();
+            $acesso->unsetAcesso();
         }
-        $carregarView = new \Core\ConfigView("src/Views/login/acesso", $this->Dados);
+
+        $carregarView = new ConfigView(SRC_VIEWS_PATH . "login/acesso", $this->Dados);
         $carregarView->renderizar(true);
     }
 
     public function logout()
     {
-        unset($_SESSION['usuario_id'], $_SESSION['usuario_nome'], $_SESSION['usuario_email'], $_SESSION['usuario_imagem'], $_SESSION['adms_niveis_acesso_id'], $_SESSION['ordem_nivac'], $_SESSION['logado']);
+        $login = new StsLogin();
+        $login->logout();
 
-        $_SESSION['msg'] = "<div class='alert alert-success'>Deslogado com sucesso</div>";
-
-        $UrlDestino = URL . '/login';
-        header("Location: $UrlDestino");
+        header("Location: ".URL . '/login');
     }
-
 }

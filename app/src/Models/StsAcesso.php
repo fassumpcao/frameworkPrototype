@@ -2,35 +2,40 @@
 
 namespace App\src\Models;
 
-if (!defined('URL')) {
-    header("Location: /");
-    exit();
-}
+use \Src\Models\helper\StsSession;
 
-/**
- * Description of AdmsLogin
- *
- * @copyright (c) year, Cesar Szpak - Celke
- */
 class StsAcesso
 {
+    private $Data;
     private $Resultado;
 
-    function getResultado()
+    public function getResultado()
     {
         return $this->Resultado;
     }
 
-    public function checkAcesso()
+    public function getAcesso()
     {
-        // ** Implementar
-        if(isset($_SESSION['logado'])){
-            $this->Resultado = $_SESSION['logado'];
-        } else {
+        $session = new StsSession();
+
+        if($session->getFieldValue("logado")){
+            $this->Resultado = true;
+        }  else {
             $this->Resultado = false;
         }
 
-        return $this->Resultado;
+    }
+
+    public function unsetAcesso()
+    {
+        $session = new StsSession();
+        $session->unsetField("logado");
+    }
+
+    public function setAcesso()
+    {
+        $session = new StsSession();
+        $session->setData(array('logado' => true));
 
     }
 

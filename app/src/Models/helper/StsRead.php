@@ -2,11 +2,6 @@
 namespace Src\Models\helper;
 use PDO;
 
-if(!defined('URL')){
-    header("Location: /site_curso");
-    exit();
-}
-
 class StsRead extends StsConn
 {
     private $Select;
